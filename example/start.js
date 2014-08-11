@@ -30,6 +30,7 @@ app.call('data.encode', {
   app_name: 'test1',
   data: {
     c: 'http://test1.local.ucdok.com:3001/home',
+    s: 'http://test1.local.ucdok.com:3001/account',
     p: {
       a: Math.random(),
       t: Date.now()

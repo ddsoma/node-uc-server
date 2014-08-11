@@ -20,6 +20,7 @@ module.exports = function (config) {
 
   var ns = app.ns;
   ns('lib.crypto', require('./lib/crypto'));
+  ns('lib.utils', require('./lib/utils'));
 
   app.use(path.resolve(__dirname, 'src'));
   app.start();
