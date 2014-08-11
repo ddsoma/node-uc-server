@@ -5,7 +5,7 @@
  */
 
 var UCServer = require('../');
-UCServer.start({
+var app = UCServer.start({
   debug: true,
   port: 3000,
   admin: {
@@ -20,6 +20,19 @@ UCServer.start({
     database: 'uc_server',
     pool: 5
   }
-}).once('start', function () {
+});
+
+app.once('start', function () {
   console.log('server started.');
 });
+
+app.call('data.encode', {
+  app_name: 'test1',
+  data: {
+    c: 'http://test1.local.ucdok.com:3001/home',
+    p: {
+      a: Math.random(),
+      t: Date.now()
+    }
+  }
+}, console.log);
