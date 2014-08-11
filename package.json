@@ -2,7 +2,7 @@
   "name": "uc-server",
   "version": "0.0.0",
   "description": "user center server",
-  "main": "lib/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "mocha -t 5000"
   },
@@ -27,13 +27,6 @@
   "dependencies": {
     "async": "^0.9.0",
     "debug": "^1.0.4",
-    "express": "^4.8.2",
-    "express-liquid": "^0.2.5",
-    "lei-cache": "^0.1.1",
-    "lei-call": "0.0.2",
-    "lei-mysql": "^0.1.6",
-    "lei-mysql-model": "^0.1.1",
-    "lei-ns": "^0.1.2",
-    "tinyliquid": "^0.2.23"
+    "peento": "0.0.3"
   }
 }
