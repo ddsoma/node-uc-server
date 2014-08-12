@@ -4,7 +4,7 @@
   <div class="container">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">Applications <button class="btn btn-xs btn-primary">Add</button></h3>
+        <h3 class="panel-title">Applications <button class="btn btn-xs btn-primary add-app">Add</button></h3>
       </div>
       <table class="table table-striped">
         <tr>
@@ -25,8 +25,8 @@
           <td>{{item.created_at|date:'%Y-%m-%d %H:%M:%S'|escape}}</td>
           <td>{{item.updated_at|date:'%Y-%m-%d %H:%M:%S'|escape}}</td>
           <td>
-            <button class="btn btn-xs btn-primary">Edit</button>
-            <button class="btn btn-xs btn-danger">Delete</button>
+            <button class="btn btn-xs btn-primary edit-app" data-id="{{item.id|escape}}">Edit</button>
+            <button class="btn btn-xs btn-danger delete-app" data-id="{{item.id|escape}}" data-name="{{item.name|escape}}">Delete</button>
           </td>
         </tr>
         {% endfor %}
@@ -35,3 +35,23 @@
   </div>
 
 {% include "admin/inc/footer" %}
+
+<script>
+$('.add-app').click(function () {
+  location = '/admin/app/add';
+});
+$('.edit-app').click(function () {
+  var id = $(this).data('id');
+  location = '/admin/app/edit?id=' + id;
+});
+$('.delete-app').click(function () {
+  var $me = $(this);
+  var id = $me.data('id');
+  var name = $me.data('name');
+  if (!confirm('Are you sure delete app #1(' + name + ')?')) return;
+  ajaxRequest.delete('/admin/app/list/' + id + '.json', {}, function (err, ret) {
+    if (err) return alert(err);
+    location.reload();
+  });
+});
+</script>

@@ -15,4 +15,11 @@ module.exports = function (ns, router) {
     res.render('admin/app/list');
   });
 
+  router.delete('/admin/app/list/:id.json', checkSignIn, function (req, res, next) {
+    app.call('app.delete', {id: req.params.id}, function (err, ret) {
+      if (err) return next(err);
+      res.json({success: ret});
+    });
+  });
+
 };
