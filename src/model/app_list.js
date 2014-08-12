@@ -39,6 +39,14 @@ module.exports = function (ns, createModel, debug) {
         }
       }
       callback(null, data);
+    },
+    output: function (data, callback) {
+      if (data) {
+        data.is_sync = !!data.is_sync;
+        data.created_at = new Date(data.created_at * 1000);
+        data.updated_at = new Date(data.updated_at * 1000);
+      }
+      callback(null, data);
     }
   });
 
