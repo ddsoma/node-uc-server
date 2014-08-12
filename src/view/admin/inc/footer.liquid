@@ -1,2 +1,10 @@
 </body>
 </html>
+
+<script>
+$('.sign-out').click(function () {
+  ajaxRequest.post('/admin/signout.json', {}, function (err, ret) {
+    location.reload();
+  });
+});
+</script>

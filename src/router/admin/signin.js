@@ -30,4 +30,9 @@ module.exports = function (ns, router) {
     });
   });
 
+  router.post('/admin/signout.json', function (req, res, next) {
+    req.session.signin_admin = null;
+    res.json({success: 1});
+  });
+
 };
