@@ -7,12 +7,12 @@
 var crypto = require('./lib/crypto');
 
 /**
- * Start uc-server
+ * Init uc-server
  *
  * @param {Object} config
  * @return {Object}
  */
-exports.start = function (config) {
+exports.init = function (config) {
   return require('./server')(config);
 };
 

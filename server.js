@@ -23,7 +23,6 @@ module.exports = function (config) {
   ns('lib.utils', require('./lib/utils'));
 
   app.use(path.resolve(__dirname, 'src'));
-  app.start();
 
   return app;
 };

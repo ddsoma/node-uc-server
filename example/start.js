@@ -5,7 +5,7 @@
  */
 
 var UCServer = require('../');
-var app = UCServer.start({
+var app = UCServer.init({
   debug: true,
   port: 3000,
   admin: {
@@ -37,3 +37,5 @@ app.call('data.encode', {
     }
   }
 }, console.log);
+
+app.start();
