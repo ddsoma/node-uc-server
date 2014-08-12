@@ -31,6 +31,9 @@
         </tr>
         {% endfor %}
       </table>
+      <div class="panel-body">
+        {% include "admin/inc/pagination" count=user_count %}
+      </div>
     </div>
   </div>
 

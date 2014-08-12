@@ -12,10 +12,22 @@ module.exports = function (ns, router) {
   var checkSignIn = ns('middleware.check_admin_signin');
 
   router.get('/admin/user/list', checkSignIn, function (req, res, next) {
+    if (!(req.query.limit > 0)) req.query.limit = ns('config.model.limit');
+    req.query.order = 'id:desc';
     app.call('user.get_list', req.query, function (err, list) {
-      if (err) res.setLocals('error', err);
-      res.setLocals('users', list);
-      res.render('admin/user/list');
+      if (err) {
+        res.setLocals('error', err);
+        return res.render('admin/user/list');
+      }
+      app.call('user.get_count', req.query, function (err, count) {
+        if (err) {
+          res.setLocals('error', err);
+          return res.render('admin/user/list');
+        }
+        res.setLocals('users', list);
+        res.setLocals('user_count', count);
+        res.render('admin/user/list');
+      });
     });
   });
 
