@@ -33,7 +33,7 @@ module.exports = function (ns, createModel, debug) {
       }
       if (type === 'add' || type === 'update2') {
         data.updated_at = model.timestamp();
-        if ('password' in data) {
+        if ('password' in data && data.password.length > 0) {
           data.password = crypto.encryptPassword(data.password);
         }
       }

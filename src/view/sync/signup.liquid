@@ -13,10 +13,10 @@
             {% endif %}
             Hello {{user_info.name|escape}}, welcome!<br>
             Your e-mail address is {{user_info.email|escape}}.<br>
+            <a href="{{data.s|escape}}">Redirect to {{data.s|escape}}, please wait...</a>
           {% for item in sync_list %}
             <script src="{{item|escape}}"></script>
           {% endfor %}
-            <a href="{{data.s|escape}}">Redirect to {{data.s|escape}}</a>
             <script>
               setTimeout(function () {
                 location.replace('{{data.s|escape}}');

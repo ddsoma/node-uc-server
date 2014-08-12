@@ -12,10 +12,10 @@
             <div class="alert alert-danger">{{error|escape}}</div>
             <button class="btn btn-primary" onclick="history.go(-1);">Back</button>
           {% else %}
+            <a href="{{data.s|escape}}">Redirect to {{data.s|escape}}, please wait...</a>
             {% for item in sync_list %}
             <script src="{{item|escape}}"></script>
             {% endfor %}
-            <a href="{{data.s|escape}}">Redirect to {{data.s|escape}}</a>
             <script>
               setTimeout(function () {
                 location.replace('{{data.s|escape}}');
