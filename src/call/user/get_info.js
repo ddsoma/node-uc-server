@@ -20,7 +20,7 @@ module.exports = function (ns, debug) {
     if (params.id > 0) {
       var field = 'Id';
       var value = params.id;
-    } if (params.name) {
+    } else if (params.name) {
       var field = 'Name';
       var value = params.name;
     } else {

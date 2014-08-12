@@ -12,9 +12,14 @@ module.exports = function (ns, debug) {
 
     user_list.getByEmail(params.email, function (err, user) {
       if (err) return callback(err);
-      if (user) return callback(new Error('User email "' + params.email + '" already exists'));
+      if (user) return callback(new Error('User email "' + params.email + '" already exist'));
 
-      user_list.add(params, callback);
+      user_list.getByName(params.name, function (err, user) {
+        if (err) return callback(err);
+        if (user) return callback(new Error('User name "' + params.name + '" already exist'));
+
+        user_list.add(params, callback);
+      });
     });
 
   }
