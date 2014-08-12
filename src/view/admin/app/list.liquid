@@ -10,20 +10,20 @@
         <tr>
           <th width="50">ID</th>
           <th width="155">Name</th>
-          <th>Client</th>
           <th width="50">Sync</th>
           <th width="155">Created At</th>
           <th width="155">Update At</th>
+          <th>Description</th>
           <th width="105">Operations</th>
         </tr>
         {% for item in apps %}
         <tr>
           <td>#{{item.id|escape}}</td>
           <td>{{item.name|escape}}</td>
-          <td>{{item.client|escape}}</td>
           <td>{% if item.is_sync %}Yes{% else %}No{% endif %}</td>
           <td>{{item.created_at|date:'%Y-%m-%d %H:%M:%S'|escape}}</td>
           <td>{{item.updated_at|date:'%Y-%m-%d %H:%M:%S'|escape}}</td>
+          <td>{{item.description|escape}}</td>
           <td>
             <button class="btn btn-xs btn-primary edit-app" data-id="{{item.id|escape}}">Edit</button>
             <button class="btn btn-xs btn-danger delete-app" data-id="{{item.id|escape}}" data-name="{{item.name|escape}}">Delete</button>

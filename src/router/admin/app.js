@@ -22,4 +22,38 @@ module.exports = function (ns, router) {
     });
   });
 
+  router.get('/admin/app/add', csrf, checkSignIn, function (req, res, next) {
+    res.render('admin/app/add');
+  });
+
+  router.post('/admin/app/add', multiparty, csrf, checkSignIn, function (req, res, next) {
+    app.call('app.add', req.body, function (err, id) {
+      if (err) {
+        res.setLocals('error', err);
+        return res.render('admin/app/add');
+      }
+      res.redirect('/admin/app/list');
+    });
+  });
+
+  router.get('/admin/app/edit', csrf, checkSignIn, function (req, res, next) {
+    app.call('app.get', req.query, function (err, appInfo) {
+      if (err) res.setLocals('error', err);
+      res.setLocals('input', appInfo);
+      res.render('admin/app/edit');
+    });
+  });
+
+  router.post('/admin/app/edit', multiparty, csrf, checkSignIn, function (req, res, next) {
+    res.setLocals('input', req.body);
+    req.body.is_sync = req.body.is_sync || 0;
+    app.call('app.update', req.body, function (err, ret) {
+      if (err) {
+        res.setLocals('error', err);
+        return res.render('admin/app/edit');
+      }
+      res.redirect('/admin/app/list');
+    });
+  });
+
 };
