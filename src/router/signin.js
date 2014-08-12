@@ -10,13 +10,14 @@ module.exports = function (ns, router) {
   var decodeParams = ns('middleware.decode_params');
   var csrf = ns('middleware.csrf');
   var multiparty = ns('middleware.multiparty');
+  var getClientIP = ns('middleware.get_client_ip');
 
   router.get('/signin', csrf, decodeParams, function (req, res, next) {
     res.setLocals('data', req.query._data);
     res.render('sign/signin');
   });
 
-  router.post('/signin', multiparty, csrf, decodeParams, function (req, res, next) {
+  router.post('/signin', multiparty, csrf, decodeParams, getClientIP, function (req, res, next) {
     res.setLocals('data', req.query._data);
     app.call('user.check_password', req.body, function (err, ok) {
       if (err) {
@@ -39,6 +40,14 @@ module.exports = function (ns, router) {
                 res.setLocals('sync_list', list);
                 res.render('sync/signin');
               }
+            });
+            // add history
+            app.call('user.history.add', {
+              user_id:   info.id,
+              type:      'i',
+              client_ip: req.client_ip
+            }, function (err) {
+              if (err) console.error(err);
             });
           }
         });
