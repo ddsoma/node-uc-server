@@ -1,0 +1,57 @@
+{% include "admin/inc/header" %}
+{% include "admin/inc/nav" %}
+
+  <div class="container">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Users <button class="btn btn-xs btn-primary add-user">Add</button></h3>
+      </div>
+      <table class="table table-striped">
+        <tr>
+          <th width="50">ID</th>
+          <th width="180">Name</th>
+          <th>E-mail</th>
+          <th width="50">Valid</th>
+          <th width="155">Created At</th>
+          <th width="155">Update At</th>
+          <th width="105">Operations</th>
+        </tr>
+        {% for item in users %}
+        <tr>
+          <td>#{{item.id|escape}}</td>
+          <td>{{item.name|escape}}</td>
+          <td>{{item.email|escape}}</td>
+          <td>{% if item.is_valid %}Yes{% else %}No{% endif %}</td>
+          <td>{{item.created_at|date:'%Y-%m-%d %H:%M:%S'|escape}}</td>
+          <td>{{item.updated_at|date:'%Y-%m-%d %H:%M:%S'|escape}}</td>
+          <td>
+            <button class="btn btn-xs btn-primary edit-user" data-id="{{item.id|escape}}">Edit</button>
+            <button class="btn btn-xs btn-danger delete-user" data-id="{{item.id|escape}}" data-name="{{item.name|escape}}">Delete</button>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+
+{% include "admin/inc/footer" %}
+
+<script>
+$('.add-user').click(function () {
+  location = '/admin/user/add';
+});
+$('.edit-user').click(function () {
+  var id = $(this).data('id');
+  location = '/admin/user/edit?id=' + id;
+});
+$('.delete-user').click(function () {
+  var $me = $(this);
+  var id = $me.data('id');
+  var name = $me.data('name');
+  if (!confirm('Are you sure delete user #1(' + name + ')?')) return;
+  ajaxRequest.delete('/admin/user/list/' + id + '.json', {}, function (err, ret) {
+    if (err) return alert(err);
+    location.reload();
+  });
+});
+</script>
