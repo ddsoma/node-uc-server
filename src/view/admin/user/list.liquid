@@ -2,6 +2,7 @@
 {% include "admin/inc/nav" %}
 
   <div class="container">
+    {% if error %}<div class="alert alert-danger">{{error|escape}}</div>{% endif %}
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Users({{user_count|escape}})
@@ -16,7 +17,7 @@
           <th width="50">Valid</th>
           <th width="155">Created At</th>
           <th width="155">Update At</th>
-          <th width="105">Operations</th>
+          <th width="170">Operations</th>
         </tr>
         {% for item in users %}
         <tr>
@@ -27,6 +28,7 @@
           <td>{{item.created_at|date:'%Y-%m-%d %H:%M:%S'|escape}}</td>
           <td>{{item.updated_at|date:'%Y-%m-%d %H:%M:%S'|escape}}</td>
           <td>
+            <a href="/admin/user/history?user_id={{item.id|escape}}" class="btn btn-xs btn-info">History</a>
             <button class="btn btn-xs btn-primary edit-user" data-id="{{item.id|escape}}">Edit</button>
             <button class="btn btn-xs btn-danger delete-user" data-id="{{item.id|escape}}" data-name="{{item.name|escape}}">Delete</button>
           </td>

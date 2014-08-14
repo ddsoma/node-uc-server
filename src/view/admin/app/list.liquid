@@ -2,6 +2,7 @@
 {% include "admin/inc/nav" %}
 
   <div class="container">
+    {% if error %}<div class="alert alert-danger">{{error|escape}}</div>{% endif %}
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Applications({{apps.length|escape}})

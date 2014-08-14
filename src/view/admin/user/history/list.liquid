@@ -1,0 +1,34 @@
+{% include "admin/inc/header" %}
+{% include "admin/inc/nav" %}
+
+  <div class="container">
+    {% if error %}<div class="alert alert-danger">{{error|escape}}</div>{% endif %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">User History({{history_count|escape}})</h3>
+      </div>
+      <table class="table table-striped">
+        <tr>
+          <th width="50">ID</th>
+          <th width="180">User</th>
+          <th>Type</th>
+          <th width="150">IP</th>
+          <th width="155">Time</th>
+        </tr>
+        {% for item in history_list %}
+        <tr>
+          <td>#{{item.id|escape}}</td>
+          <td>{{item.user_id|user_get_name_by_id|escape}}</td>
+          <td><strong>{{item.type|user_history_type|escape}}</strong></td>
+          <td>{{item.client_ip|escape}}</td>
+          <td>{{item.timestamp|date:'%Y-%m-%d %H:%M:%S'|escape}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      <div class="panel-body">
+        {% include "admin/inc/pagination" count=history_count %}
+      </div>
+    </div>
+  </div>
+
+{% include "admin/inc/footer" %}

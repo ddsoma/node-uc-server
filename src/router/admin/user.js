@@ -73,4 +73,24 @@ module.exports = function (ns, router) {
     });
   });
 
+  router.get('/admin/user/history', checkSignIn, function (req, res, next) {
+    if (!(req.query.limit > 0)) req.query.limit = ns('config.model.limit');
+    req.query.order = 'id:desc';
+    app.call('user.history.get_list', req.query, function (err, list) {
+      if (err) {
+        res.setLocals('error', err);
+        return res.render('admin/user/history/list');
+      }
+      app.call('user.history.get_count', req.query, function (err, count) {
+        if (err) {
+          res.setLocals('error', err);
+          return res.render('admin/user/history/list');
+        }
+        res.setLocals('history_list', list);
+        res.setLocals('history_count', count);
+        res.render('admin/user/history/list');
+      });
+    });
+  });
+
 };
