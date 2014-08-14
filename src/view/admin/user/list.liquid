@@ -6,6 +6,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Users({{user_count|escape}})
+          <button class="btn btn-xs btn-info view-history">History</button>
           <button class="btn btn-xs btn-primary add-user">Add</button>
         </h3>
       </div>
@@ -44,6 +45,9 @@
 {% include "admin/inc/footer" %}
 
 <script>
+$('.view-history').click(function () {
+  location = '/admin/user/history';
+});
 $('.add-user').click(function () {
   location = '/admin/user/add';
 });
