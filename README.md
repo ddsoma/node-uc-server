@@ -17,6 +17,7 @@ $ npm install uc-server
 var UCServer = require('uc-server');
 UCServer.init({
   port: 3000,
+  url: 'http://127.0.0.1:3000'
   admin: {
     name:     'admin',
     password: UCServer.encryptPassword('密码')
