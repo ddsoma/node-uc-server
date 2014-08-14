@@ -12,7 +12,7 @@ module.exports = function (ns, debug) {
     var user_history_list = ns('model.user_history_list');
     params = utils.cloneObject(params);
 
-    var query = {};
+    var query = params;
 
     var options = user_history_list.formatListOptions(params);
     user_history_list.list(query, options, callback);

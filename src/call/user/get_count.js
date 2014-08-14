@@ -10,7 +10,7 @@ module.exports = function (ns, debug) {
 
     debug('get count');
 
-    var query = {};
+    var query = params;
 
     ns('model.user_list').count(query, callback);
 
