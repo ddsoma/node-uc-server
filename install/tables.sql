@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2014 年 08 月 11 日 08:20
+-- 生成日期: 2014 年 08 月 14 日 07:44
 -- 服务器版本: 5.1.36
 -- PHP 版本: 5.2.11
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `app_list` (
   KEY `is_sync` (`is_sync`),
   KEY `created_at` (`created_at`),
   KEY `updated_at` (`updated_at`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -44,14 +44,14 @@ CREATE TABLE IF NOT EXISTS `app_list` (
 CREATE TABLE IF NOT EXISTS `user_history_list` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `type` tinyint(4) NOT NULL,
+  `type` varchar(1) CHARACTER SET utf8 NOT NULL,
   `timestamp` int(11) NOT NULL,
   `client_ip` varchar(15) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `type` (`type`),
   KEY `timestamp` (`timestamp`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -73,4 +73,4 @@ CREATE TABLE IF NOT EXISTS `user_list` (
   KEY `is_valid` (`is_valid`),
   KEY `created_at` (`created_at`),
   KEY `updated_at` (`updated_at`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
