@@ -53,7 +53,7 @@ module.exports = function (ns, router) {
   });
 
   router.get('/admin/user/edit', csrf, checkSignIn, function (req, res, next) {
-    app.call('user.get_info', req.query, function (err, appInfo) {
+    app.call('user.get', req.query, function (err, appInfo) {
       if (err) res.setLocals('error', err);
       res.setLocals('input', appInfo);
       res.render('admin/user/edit');

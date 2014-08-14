@@ -24,7 +24,7 @@ module.exports = function (ns, router) {
         res.setLocals('error', err);
         res.render('sign/signup');
       } else {
-        app.call('user.get_info', {id: id}, function (err, info) {
+        app.call('user.get', {id: id}, function (err, info) {
           if (err) {
             res.setLocals('error', err);
             res.render('sign/signup');

@@ -27,7 +27,7 @@ module.exports = function (ns, router) {
         res.setLocals('error', 'Username or password is not correct');
         res.render('sign/signin');
       } else {
-        app.call('user.get_info', req.body, function (err, info) {
+        app.call('user.get', req.body, function (err, info) {
           if (err) {
             res.setLocals('error', err);
             res.render('sign/signin');

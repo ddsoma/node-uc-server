@@ -10,7 +10,7 @@ module.exports = function (ns, debug) {
 
     debug('delete: [%s]', params.id || params.email);
 
-    ns('app').call('user.get_info', params, function (err, user) {
+    ns('app').call('user.get', params, function (err, user) {
       if (err) return callback(err);
 
       ns('model.user_list').deleteById(user.id, callback);

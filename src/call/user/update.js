@@ -10,7 +10,7 @@ module.exports = function (ns, debug) {
 
     debug('update: [%s]', params.id || params.email || params.name);
 
-    ns('app').call('user.get_info', params, function (err, user) {
+    ns('app').call('user.get', params, function (err, user) {
       if (err) return callback(err);
 
       var data = {};

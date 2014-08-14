@@ -9,7 +9,7 @@ module.exports = function (ns, registerFilter, debug) {
 
   function user_get_name_by_idAsync (id, callback) {
     if (!(id > 0)) return callback(null, '');
-    app.call('user.get_info', {id: id}, function (err, userInfo) {
+    app.call('user.get', {id: id}, function (err, userInfo) {
       callback(null, (userInfo && userInfo.name) || '');
     });
   }
