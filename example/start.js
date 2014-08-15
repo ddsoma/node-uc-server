@@ -4,11 +4,12 @@
  * @author Zongmin Lei <leizongmin@gmail.com>
  */
 
-var UCServer = require('../');
+var path = require('path');
+var UCServer = require('uc-server');
 var app = UCServer.init({
   debug: true,
   port: 3000,
-  url: 'http://127.0.0.1:3000',
+  url: 'http://www.onlyfactory.com',
   admin: {
     name:     'admin',
     password: UCServer.encryptPassword('123456')
@@ -20,23 +21,12 @@ var app = UCServer.init({
     password: 'uc_server',
     database: 'uc_server',
     pool: 5
-  }
+  },
+  passport: require('./passport_config')
 });
 
 app.once('start', function () {
   console.log('server started.');
 });
-
-app.call('data.encode', {
-  app_name: 'test1',
-  data: {
-    c: 'http://test1.local.ucdok.com:3001/home',
-    s: 'http://test1.local.ucdok.com:3001/account',
-    p: {
-      a: Math.random(),
-      t: Date.now()
-    }
-  }
-}, console.log);
 
 app.start();

@@ -27,6 +27,7 @@
   "dependencies": {
     "async": "^0.9.0",
     "debug": "^1.0.4",
+    "passport": "^0.2.0",
     "peento": "0.0.3",
     "xss": "^0.1.10"
   }

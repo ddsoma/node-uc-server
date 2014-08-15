@@ -23,6 +23,7 @@
                 <button type="submit" class="btn btn-success btn-block">Submit</button>
               </fieldset>
             </form>
+            {% include "sign/third_part" %}
           </div>
         </div>
         <p>
@@ -33,3 +34,11 @@
   </div>
 
 {% include "front/inc/footer" %}
+
+<script>
+$('#ipt-passport-type').change(function () {
+  var name = $(this).val();
+  if (!name) return;
+  location = '/passport/' + name;
+});
+</script>

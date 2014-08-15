@@ -1,0 +1,14 @@
+<hr>
+<div class="form-inline" role="form">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon">Sign in with</div>
+      <select class="form-control" id="ipt-passport-type">
+        <option value="">please select</option>
+        {% for item in passport_types %}
+        <option value="{{item|escape}}">{{item|escape}}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+</div>
