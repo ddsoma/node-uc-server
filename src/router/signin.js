@@ -13,12 +13,12 @@ module.exports = function (ns, router) {
   var getClientIP = ns('middleware.get_client_ip');
 
   router.get('/signin', csrf, decodeParams, function (req, res, next) {
-    res.setLocals('data', req.query._data);
+    res.setLocals('data', req.session.client.data);
     res.render('sign/signin');
   });
 
   router.post('/signin', multiparty, csrf, decodeParams, getClientIP, function (req, res, next) {
-    res.setLocals('data', req.query._data);
+    res.setLocals('data', req.session.client.data);
     app.call('user.check_password', req.body, function (err, ok) {
       if (err) {
         res.setLocals('error', err);

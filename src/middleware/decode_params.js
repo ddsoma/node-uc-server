@@ -10,7 +10,10 @@ module.exports = function (ns, debug) {
 
     if (req.query.app && req.query.data) {
       decode(req.query.app, req.query.data, function (err, data) {
-        req.query._data = data;
+        req.session.client = {
+          app: app,
+          data: data
+        };
         next(err);
       });
     } else {
