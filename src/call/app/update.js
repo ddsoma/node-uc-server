@@ -17,6 +17,7 @@ module.exports = function (ns, debug) {
       if ('name' in params) data.name = params.name;
       if ('key' in params) data.key = params.key;
       if ('client' in params) data.client = params.client;
+      if ('title' in params) data.title = params.title;
       if ('description' in params) data.description = params.description;
       if ('is_sync' in params) data.is_sync = (utils.parseQueryBool(params.is_sync, false) ? 1 : 0);
 

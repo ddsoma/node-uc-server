@@ -11,14 +11,14 @@ module.exports = function (ns, router) {
   var csrf = ns('middleware.csrf');
   var multiparty = ns('middleware.multiparty');
   var getClientIP = ns('middleware.get_client_ip');
+  var checkSourceAppData = ns('middleware.check_source_app_data');
 
-  router.get('/signin', csrf, decodeParams, function (req, res, next) {
-    res.setLocals('data', req.session.client.data);
+  router.get('/signin', csrf, decodeParams, checkSourceAppData, function (req, res, next) {
+    console.log(req.session);
     res.render('sign/signin');
   });
 
-  router.post('/signin', multiparty, csrf, decodeParams, getClientIP, function (req, res, next) {
-    res.setLocals('data', req.session.client.data);
+  router.post('/signin', multiparty, csrf, decodeParams, getClientIP, checkSourceAppData, function (req, res, next) {
     app.call('user.check_password', req.body, function (err, ok) {
       if (err) {
         res.setLocals('error', err);

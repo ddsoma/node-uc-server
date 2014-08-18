@@ -14,8 +14,8 @@
           <th width="50">ID</th>
           <th width="155">Name</th>
           <th width="50">Sync</th>
-          <th width="155">Created At</th>
           <th width="155">Update At</th>
+          <th width="155">Title</th>
           <th>Description</th>
           <th width="105">Operations</th>
         </tr>
@@ -24,8 +24,8 @@
           <td>#{{item.id|escape}}</td>
           <td>{{item.name|escape}}</td>
           <td>{% if item.is_sync %}Yes{% else %}No{% endif %}</td>
-          <td>{{item.created_at|date:'%Y-%m-%d %H:%M:%S'|escape}}</td>
           <td>{{item.updated_at|date:'%Y-%m-%d %H:%M:%S'|escape}}</td>
+          <td>{{item.title|escape}}</td>
           <td>{{item.description|escape}}</td>
           <td>
             <button class="btn btn-xs btn-primary edit-app" data-id="{{item.id|escape}}">Edit</button>

@@ -19,6 +19,7 @@ module.exports = function (ns, createModel, debug) {
       key:          'string',
       client:       'string',
       is_sync:      'number',
+      title:        'string',
       description:  '*',
       created_at:   'number',
       updated_at:   'number'
