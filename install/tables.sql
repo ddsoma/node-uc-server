@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2014 年 08 月 18 日 09:53
+-- 生成日期: 2014 年 08 月 18 日 10:25
 -- 服务器版本: 5.1.36
 -- PHP 版本: 5.2.11
 
@@ -49,6 +49,24 @@ CREATE TABLE IF NOT EXISTS `user_connect_list` (
   `created_at` int(11) NOT NULL,
   PRIMARY KEY (`user_id`,`provider`),
   KEY `unique_id` (`unique_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `user_detail_list`
+--
+
+CREATE TABLE IF NOT EXISTS `user_detail_list` (
+  `user_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `type` varchar(1) NOT NULL,
+  `int_value` int(11) DEFAULT NULL,
+  `double_value` double DEFAULT NULL,
+  `text_value` text,
+  `created_at` int(11) NOT NULL,
+  UNIQUE KEY `user_id_2` (`user_id`,`name`),
+  KEY `user_id` (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

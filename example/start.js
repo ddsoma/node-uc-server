@@ -27,6 +27,19 @@ var app = UCServer.init({
 
 app.once('start', function () {
   console.log('server started.');
+  test();
 });
 
 app.start();
+
+
+function test () {
+  app.ns('model.user_detail_list').add({
+    user_id: 1,
+    name: 'score3',
+    value: 'a20.5'
+  }, function (err) {
+    console.log(arguments);
+    app.ns('model.user_detail_list').list({user_id: 1}, {}, console.log);
+  });
+}
