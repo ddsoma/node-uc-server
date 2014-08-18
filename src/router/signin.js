@@ -12,13 +12,26 @@ module.exports = function (ns, router) {
   var multiparty = ns('middleware.multiparty');
   var getClientIP = ns('middleware.get_client_ip');
   var checkSourceAppData = ns('middleware.check_source_app_data');
+  var checkPassportUser = ns('middleware.check_passport_user');
 
-  router.get('/signin', csrf, decodeParams, checkSourceAppData, function (req, res, next) {
+  router.get('/signin',
+  csrf,
+  decodeParams,
+  checkSourceAppData,
+  checkPassportUser,
+  function (req, res, next) {
     console.log(req.session);
     res.render('sign/signin');
   });
 
-  router.post('/signin', multiparty, csrf, decodeParams, getClientIP, checkSourceAppData, function (req, res, next) {
+  router.post('/signin',
+  multiparty,
+  csrf,
+  decodeParams,
+  getClientIP,
+  checkSourceAppData,
+  checkPassportUser,
+  function (req, res, next) {
     app.call('user.check_password', req.body, function (err, ok) {
       if (err) {
         res.setLocals('error', err);

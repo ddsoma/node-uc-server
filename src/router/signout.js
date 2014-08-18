@@ -10,9 +10,15 @@ module.exports = function (ns, router) {
   var decodeParams = ns('middleware.decode_params');
   var csrf = ns('middleware.csrf');
   var multiparty = ns('middleware.multiparty');
+  var checkSourceAppData = ns('middleware.check_source_app_data');
+  var checkPassportUser = ns('middleware.check_passport_user');
 
-  router.get('/signout', csrf, decodeParams, function (req, res, next) {
-    res.setLocals('data', req.query._data);
+  router.get('/signout',
+  csrf,
+  decodeParams,
+  checkSourceAppData,
+  checkPassportUser,
+  function (req, res, next) {
     app.call('sync.signout', {user: (req.query._data.p || {})}, function (err, list) {
       if (err) {
         res.setLocals('error', err);

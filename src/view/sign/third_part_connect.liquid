@@ -1,0 +1,33 @@
+{% if connect_info %}
+<div style="height:20px;"></div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      Connect to your <strong>{{connect_info.provider|escape}}</strong> account
+      <a href="?clear_connect=1" class="close" aria-hidden="true">&times;</a>
+    </h3>
+  </div>
+  <div class="panel-body">
+    <p>
+      {{connect_info.provider|escape}} ID:
+      <strong>{{connect_info.id|escape}}
+        {% if connect_info.displayName %}({{connect_info.displayName|escape}}){% endif %}
+      </strong>
+    </p>
+    <p>
+      Because this is your first time to use the <strong>{{connect_info.provider|escape}}</strong> account to sign in, you need to bind a local account.
+      <br>
+      {% if is_signin %}
+      Please enter your account info and click <strong>[Sign in]</strong> button to finish.
+      <br>
+      If you don't have a local account, please click <a href="/signup">here</a> to sign up.
+      {% endif %}
+      {% if is_signup %}
+      If you already have a local account, please click <a href="/signin">here</a> to sign in.
+      {% endif %}
+    </p>
+  </div>
+</div>
+{% else %}
+<div style="height:100px;"></div>
+{% endif %}
