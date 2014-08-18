@@ -63,7 +63,7 @@ module.exports = function (ns, router, debug) {
         });
       } else {
         // first sign in, need to bind an account
-        res.redirect('/signin?bind=1');
+        res.redirect('/signup?bind=1');
       }
     });
   });
