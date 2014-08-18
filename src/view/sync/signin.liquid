@@ -8,13 +8,13 @@
             <h3 class="panel-title">Sign In Succeed!</h3>
           </div>
           <div class="panel-body">
-            <a href="{{data.s|escape}}">Redirect to {{data.s|escape}}, please wait...</a>
+            <a href="{{app_data.s|escape}}">Redirect to {{app_name|app_get_title_by_name|escape}}, please wait...</a>
           {% for item in sync_list %}
             <script src="{{item|escape}}"></script>
           {% endfor %}
             <script>
               setTimeout(function () {
-                location.replace('{{data.s|escape}}');
+                location.replace('{{app_data.s|escape}}');
               }, 1000);
             </script>
           </div>

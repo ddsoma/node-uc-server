@@ -13,6 +13,8 @@ module.exports = function (ns, router, debug) {
   var csrf = ns('middleware.csrf');
   var multiparty = ns('middleware.multiparty');
   var getClientIP = ns('middleware.get_client_ip');
+  var checkSourceAppData = ns('middleware.check_source_app_data');
+  var checkPassportUser = ns('middleware.check_passport_user');
 
   var BASE_URL = ns('config.url');
   if (!BASE_URL) throw new Error('Please provide "config.url"');
@@ -22,7 +24,11 @@ module.exports = function (ns, router, debug) {
     done(null, user);
   });
 
-  router.get('/passport/connect/successed', function (req, res, next) {
+  router.get('/passport/connect/successed',
+  getClientIP,
+  checkSourceAppData,
+  checkPassportUser,
+  function (req, res, next) {
     if (!req.session.passport) {
       return next(new Error('cannot get passport session'));
     }
@@ -34,7 +40,27 @@ module.exports = function (ns, router, debug) {
     }, function (err, item) {
       if (item) {
         // sign in success
-        res.json(item);
+        app.call('user.get', {id: item.user_id}, function (err, userInfo) {
+          if (err) return next(new Error('cannot get user info: ' + err));
+          delete req.session.passport;
+          app.call('sync.signin', {user: userInfo}, function (err, list) {
+            if (err) {
+              res.setLocals('error', err);
+              res.render('sign/signin');
+            } else {
+              res.setLocals('sync_list', list);
+              res.render('sync/signin');
+            }
+          });
+          // add history
+          app.call('user.history.add', {
+            user_id:   userInfo.id,
+            type:      'i',
+            client_ip: req.client_ip
+          }, function (err) {
+            if (err) console.error(err);
+          });
+        });
       } else {
         // first sign in, need to bind an account
         res.redirect('/signin?bind=1');

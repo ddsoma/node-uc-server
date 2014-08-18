@@ -40,28 +40,49 @@ module.exports = function (ns, router) {
         res.setLocals('error', 'Username or password is not correct');
         res.render('sign/signin');
       } else {
-        app.call('user.get', req.body, function (err, info) {
+        app.call('user.get', req.body, function (err, userInfo) {
           if (err) {
             res.setLocals('error', err);
             res.render('sign/signin');
           } else {
-            app.call('sync.signin', {user: info}, function (err, list) {
-              if (err) {
-                res.setLocals('error', err);
-                res.render('sign/signin');
-              } else {
-                res.setLocals('sync_list', list);
-                res.render('sync/signin');
-              }
-            });
-            // add history
-            app.call('user.history.add', {
-              user_id:   info.id,
-              type:      'i',
-              client_ip: req.client_ip
-            }, function (err) {
-              if (err) console.error(err);
-            });
+            function signInSuccess () {
+              app.call('sync.signin', {user: userInfo}, function (err, list) {
+                if (err) {
+                  res.setLocals('error', err);
+                  res.render('sign/signin');
+                } else {
+                  res.setLocals('sync_list', list);
+                  res.render('sync/signin');
+                }
+              });
+              // add history
+              app.call('user.history.add', {
+                user_id:   userInfo.id,
+                type:      'i',
+                client_ip: req.client_ip
+              }, function (err) {
+                if (err) console.error(err);
+              });
+            }
+
+            if (req.session.passport && req.session.passport.user) {
+              var connectInfo = req.session.passport.user;
+              delete req.session.passport;
+              app.call('passport.add', {
+                user_id:   userInfo.id,
+                provider:  connectInfo.provider,
+                unique_id: connectInfo.id
+              }, function (err) {
+                if (err) {
+                  res.setLocals('error', err);
+                  res.render('sign/signin');
+                } else {
+                  signInSuccess();
+                }
+              });
+            } else {
+              signInSuccess();
+            }
           }
         });
       }
