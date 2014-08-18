@@ -14,17 +14,23 @@
         <tr>
           <th width="50">ID</th>
           <th width="180">Name</th>
-          <th>E-mail</th>
+          <th>E-mail & Third-Part Account</th>
           <th width="50">Valid</th>
           <th width="155">Created At</th>
           <th width="155">Update At</th>
           <th width="170">Operations</th>
         </tr>
         {% for item in users %}
+          {% assign connect_list = item.id|passport_list_by_user_id %}
         <tr>
           <td>#{{item.id|escape}}</td>
           <td>{{item.name|escape}}</td>
-          <td>{{item.email|escape}}</td>
+          <td>
+            <strong>{{item.email|escape}}</strong>
+            {% for c in connect_list %}
+            <div><strong>{{c.unique_id|escape}}</strong>@{{c.provider|escape}}</div>
+            {% endfor %}
+          </td>
           <td>{% if item.is_valid %}Yes{% else %}No{% endif %}</td>
           <td>{{item.created_at|date:'%Y-%m-%d %H:%M:%S'|escape}}</td>
           <td>{{item.updated_at|date:'%Y-%m-%d %H:%M:%S'|escape}}</td>

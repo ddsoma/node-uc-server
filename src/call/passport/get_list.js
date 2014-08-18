@@ -14,6 +14,7 @@ module.exports = function (ns, debug) {
 
     var query = params;
 
+    params.order = params.order || 'created_at:desc';
     var options = user_connect_list.formatListOptions(params);
     user_connect_list.list(query, options, callback);
 
