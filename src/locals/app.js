@@ -14,4 +14,10 @@ module.exports = function (ns, registerLocals, debug) {
     });
   });
 
+  registerLocals('available_call_list', function (name, callback, context) {
+    app.call('app.call.available_call_list', {}, function (err, list) {
+      callback(null, list || []);
+    });
+  });
+
 };

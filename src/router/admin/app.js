@@ -56,4 +56,18 @@ module.exports = function (ns, router) {
     });
   });
 
+  router.post('/admin/app/call.json', multiparty, checkSignIn, function (req, res, next) {
+    app.call('app.call.add', req.body, function (err, ret) {
+      if (err) return next(err);
+      res.json({success: ret});
+    });
+  });
+
+  router.delete('/admin/app/call.json', multiparty, checkSignIn, function (req, res, next) {
+    app.call('app.call.delete', req.body, function (err, ret) {
+      if (err) return next(err);
+      res.json({success: ret});
+    });
+  });
+
 };

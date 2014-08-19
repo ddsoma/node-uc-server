@@ -17,3 +17,9 @@ body {
   border: 0;
   max-width: 100%;
 }
+
+.checkbox.checked {
+  font-weight: bold;
+  background-color: #6793AC;
+  color: #FFF;
+}

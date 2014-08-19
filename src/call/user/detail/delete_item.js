@@ -10,10 +10,10 @@ module.exports = function (ns, debug) {
     debug('delete item: [%s] %s', params.user_id, params.name);
 
     if (!(params.user_id > 0)) {
-      return callback(user_list.missingRequiredFieldError('user_id'));
+      return callback(ns('model.user_detail_list').missingRequiredFieldError('user_id'));
     }
     if (!params.name) {
-      return callback(user_list.missingRequiredFieldError('name'));
+      return callback(ns('model.user_detail_list').missingRequiredFieldError('name'));
     }
 
     ns('model.user_detail_list').delete({

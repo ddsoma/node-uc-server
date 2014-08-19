@@ -34,5 +34,5 @@ app.start();
 
 
 function test () {
-
+  //app.call('app.call.available_call_list', {}, console.log);
 }

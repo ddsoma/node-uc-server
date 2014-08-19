@@ -3,7 +3,7 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-md-4 col-md-offset-4">
+      <div class="col-md-6">
         <div class="signin-panel panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">Edit Application #{{input.id|escape}}</h3>
@@ -41,8 +41,25 @@
                 </label>
               </div>
               <hr>
-              <button type="submit" class="btn btn-success btn-block">Submit</button>
+              <button type="submit" class="btn btn-primary btn-block">UPDATE INFO</button>
             </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <span class="panel-title">Available Call List</span>
+          </div>
+          <div class="panel-body">
+          {% for item in available_call_list %}
+            {% assign is_available = input.id|app_call_check:item %}
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" data-id="{{input.id|escape}}" data-name="{{item|escape}}" class="update-app-call-list" {% if is_available %}checked{% endif %}> {{item|escape}}
+              </label>
+            </div>
+          {% endfor %}
           </div>
         </div>
       </div>
@@ -50,3 +67,38 @@
   </div>
 
 {% include "admin/inc/footer" %}
+
+<script>
+$(function () {
+
+  $('.update-app-call-list').click(function () {
+    var $me = $(this);
+    var id = $me.data('id');
+    var name = $me.data('name');
+    var data = {app_id: id, name: name};
+    if ($me.prop('checked')) {
+      ajaxRequest.post('/admin/app/call.json', data, callback);
+    } else {
+      ajaxRequest.delete('/admin/app/call.json', data, callback);
+    }
+    function callback (err, ret) {
+      if (err) alert(err);
+      refreshAvailableCallList();
+    }
+  });
+
+  function refreshAvailableCallList () {
+    $('.update-app-call-list').each(function () {
+      var $me = $(this);
+      if ($me.prop('checked')) {
+        $me.closest('.checkbox').addClass('checked');
+      } else {
+        $me.closest('.checkbox').removeClass('checked');
+      }
+    });
+  }
+  refreshAvailableCallList();
+
+});
+</script>
+
