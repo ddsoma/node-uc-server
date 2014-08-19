@@ -22,7 +22,8 @@ var app = UCServer.init({
     database: 'uc_server',
     pool: 5
   },
-  passport: require('./passport_config')
+  passport: require('./passport_config'),
+  email: require('./email_config')
 });
 
 app.once('start', function () {
@@ -34,5 +35,9 @@ app.start();
 
 
 function test () {
-  //app.call('app.call.available_call_list', {}, console.log);
+  app.call('email.notify_user', {
+    user_id: 2,
+    subject: '测试一下',
+    template: 'hello'
+  }, console.log);
 }

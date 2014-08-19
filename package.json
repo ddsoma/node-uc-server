@@ -27,8 +27,10 @@
   "dependencies": {
     "async": "^0.9.0",
     "debug": "^1.0.4",
+    "nodemailer": "^0.7.1",
     "passport": "^0.2.0",
     "peento": "0.0.3",
+    "tinyliquid": "^0.2.24",
     "xss": "^0.1.10"
   }
 }
