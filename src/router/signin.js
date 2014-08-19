@@ -20,7 +20,6 @@ module.exports = function (ns, router) {
   checkSourceAppData,
   checkPassportUser,
   function (req, res, next) {
-    console.log(req.session);
     res.render('sign/signin');
   });
 
