@@ -5,7 +5,7 @@
  */
 
 var path = require('path');
-var UCServer = require('uc-server');
+var UCServer = require('../');
 var app = UCServer.init({
   debug: true,
   port: 3000,
@@ -34,12 +34,5 @@ app.start();
 
 
 function test () {
-  app.ns('model.user_detail_list').add({
-    user_id: 1,
-    name: 'score3',
-    value: 'a20.5'
-  }, function (err) {
-    console.log(arguments);
-    app.ns('model.user_detail_list').list({user_id: 1}, {}, console.log);
-  });
+
 }
