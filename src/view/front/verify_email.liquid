@@ -1,0 +1,58 @@
+{% include "front/inc/header" %}
+
+<div style="height:100px;"></div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-offset-3 col-md-6">
+
+      {% include "front/inc/error" %}
+
+      {% if is_success %}
+
+      <div class="alert alert-success">
+        You've successfully verified your account.
+      </div>
+
+      {% else %}
+
+      {% if is_done %}
+
+      <div class="alert alert-success">
+        An email has been sent. Click the link when you get it.
+      </div>
+
+      {% else %}
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Verify Account</h3>
+        </div>
+        <div class="panel-body">
+          <form class="form-horizontal" id="page-forgot-password-form" role="form" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="_csrf" value="{{_csrf|escape}}">
+            <div class="form-group">
+              <label for="ipt-email" class="col-sm-3 control-label">Email</label>
+              <div class="col-sm-9">
+                <input type="email" name="email" class="form-control" id="ipt-email" placeholder="Email" value="{% if input.email %}{{input.email|escape}}{% else %}{{signin_user_info.email|escape}}{% endif %}">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12 col-md-offset-3 col-md-6">
+                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      {% endif %}
+
+      {% endif %}
+
+    </div>
+
+  </div>
+
+</div>
+
+{% include "front/inc/footer" %}

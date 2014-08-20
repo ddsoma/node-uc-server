@@ -25,7 +25,7 @@ module.exports = function (ns, debug) {
       }
 
       // ok
-      ns('model.users').updateById(item.user_id, {
+      ns('model.user_list').updateById(item.user_id, {
         is_verified_email: 1
       }, function (err) {
         if (err) return callback(err);

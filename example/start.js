@@ -36,5 +36,5 @@ app.start();
 
 
 function test () {
-  app.call('user.verify.request', {id: 1}, console.log);
+  //app.call('user.verify.request', {id: 1}, console.log);
 }
