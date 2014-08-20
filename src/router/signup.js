@@ -33,57 +33,50 @@ module.exports = function (ns, router) {
   checkPassportUser,
   function (req, res, next) {
     res.setLocals('title', 'Sign up');
-    app.call('user.add', req.body, function (err, id) {
+    app.call('user.add', req.body, function (err, userInfo) {
       if (err) {
         res.setLocals('error', err);
         res.render('sign/signup');
       } else {
-        app.call('user.get', {id: id}, function (err, userInfo) {
-          if (err) {
-            res.setLocals('error', err);
-            res.render('sign/signup');
-          } else {
-            res.setLocals('user_info', userInfo);
-            function signupSuccess () {
-              app.call('sync.signup', {user: userInfo}, function (err, list) {
-                if (err) {
-                  res.setLocals('error', err);
-                  res.render('sign/signup');
-                } else {
-                  res.setLocals('sync_list', list);
-                  res.render('sync/signup');
-                }
-              });
-              // add history
-              app.call('user.history.add', {
-                user_id:   userInfo.id,
-                type:      'u',
-                client_ip: req.client_ip
-              }, function (err) {
-                if (err) console.error(err);
-              });
+        res.setLocals('user_info', userInfo);
+        function signupSuccess () {
+          app.call('sync.signup', {user: userInfo}, function (err, list) {
+            if (err) {
+              res.setLocals('error', err);
+              res.render('sign/signup');
+            } else {
+              res.setLocals('sync_list', list);
+              res.render('sync/signup');
             }
+          });
+          // add history
+          app.call('user.history.add', {
+            user_id:   userInfo.id,
+            type:      'u',
+            client_ip: req.client_ip
+          }, function (err) {
+            if (err) console.error(err);
+          });
+        }
 
-            if (req.session.passport && req.session.passport.user) {
-              var connectInfo = req.session.passport.user;
-              delete req.session.passport;
-              app.call('passport.add', {
-                user_id:   userInfo.id,
-                provider:  connectInfo.provider,
-                unique_id: connectInfo.id
-              }, function (err) {
-                if (err) {
-                  res.setLocals('error', err);
-                  res.render('sign/signin');
-                } else {
-                  signupSuccess();
-                }
-              });
+        if (req.session.passport && req.session.passport.user) {
+          var connectInfo = req.session.passport.user;
+          delete req.session.passport;
+          app.call('passport.add', {
+            user_id:   userInfo.id,
+            provider:  connectInfo.provider,
+            unique_id: connectInfo.id
+          }, function (err) {
+            if (err) {
+              res.setLocals('error', err);
+              res.render('sign/signin');
             } else {
               signupSuccess();
             }
-          }
-        });
+          });
+        } else {
+          signupSuccess();
+        }
       }
     });
   });
