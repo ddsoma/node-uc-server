@@ -20,12 +20,14 @@ module.exports = function (ns, createModel, debug) {
       password:     'string',
       is_valid:     'number',
       created_at:   'number',
-      updated_at:   'number'
+      updated_at:   'number',
+      is_verified_email: 'number'
     },
     queryFields: ['name', 'email'],
     requiredFields: ['name', 'email', 'password'],
     input: function (data, callback, type) {
       if (type === 'add') {
+        data.is_verified_email = 0;
         data.created_at = model.timestamp();
         if (!('is_valid' in data)) {
           data.is_valid = 1;
@@ -42,6 +44,7 @@ module.exports = function (ns, createModel, debug) {
     output: function (data, callback) {
       if (data) {
         data.is_valid = !!data.is_valid;
+        data.is_verified_email = !!data.is_verified_email;
         data.created_at = new Date(data.created_at * 1000);
         data.updated_at = new Date(data.updated_at * 1000);
       }
