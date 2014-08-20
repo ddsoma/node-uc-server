@@ -1,5 +1,5 @@
 /**
- * Model: user_verify_code_list
+ * Model: user_reset_password_list
  *
  * @author Zongmin Lei <leizongmin@gmail.com>
  */
@@ -8,9 +8,10 @@ module.exports = function (ns, createModel, debug) {
 
   var crypto = ns('lib.crypto');
 
+
   var model = createModel({
     connection: ns('db'),
-    table:      'user_verify_code_list',
+    table:      'user_reset_password_list',
     primary:    'id',
     limit:      ns('config.model.limit'),
     fields: {

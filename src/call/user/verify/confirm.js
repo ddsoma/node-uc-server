@@ -16,12 +16,12 @@ module.exports = function (ns, debug) {
       var now = new Date().getTime()
       var expired = new Date(item.created_at).getTime() + 1800000;
       if (!(expired > now)) {
-        return callback(error.accountVerifyCodeExpired(params.code));
+        return callback(new Error('account verify code expired: ' + params.code));
       }
 
       // check
       if (item.is_done) {
-        return callback(new Error('account verify code expired: ' + params.code));
+        return callback(new Error('account verify code already used: ' + params.code));
       }
 
       // ok

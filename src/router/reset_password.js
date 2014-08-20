@@ -1,5 +1,5 @@
 /**
- * Router: verify account email address
+ * Router: reset account password
  *
  * @author Zongmin Lei <leizongmin@gmail.com>
  */
@@ -11,36 +11,39 @@ module.exports = function (ns, router) {
   var csrf = ns('middleware.csrf');
   var multiparty = ns('middleware.multiparty');
 
-  router.get('/verify_email',
+
+  router.get('/reset_password',
   csrf,
   function (req, res, next) {
     if (req.query.code) {
-      app.call('user.verify.confirm', {
+      // set new password
+      app.call('user.reset_password.confirm', {
         code: req.query.code
       }, function (err, item) {
         if (err) {
           res.context.setLocals('error', err);
-          return res.render('front/verify_email');
+          return res.render('front/reset_password');
         }
-        res.context.setLocals('is_success', true);
-        res.render('front/verify_email');
+        res.context.setLocals('new_password', item.password);
+        res.render('front/reset_password');
       });
     } else {
-      res.render('front/verify_email');
+      // request to reset password
+      res.render('front/forgot_password');
     }
   });
-
-  router.post('/verify_email',
+  router.post('/reset_password',
   multiparty,
   csrf,
   function (req, res, next) {
-    app.call('user.verify.request', {email: req.body.email}, function (err, ret) {
+    // confirm reset
+    app.call('user.reset_password.request', {email: req.body.email}, function (err, ret) {
       if (err) {
         res.context.setLocals('error', err);
       } else {
         res.context.setLocals('is_done', true);
       }
-      res.render('front/verify_email');
+      res.render('front/forgot_password');
     });
   });
 
