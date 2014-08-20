@@ -18,7 +18,11 @@ module.exports = function (ns, debug) {
         if (err) return callback(err);
         if (user) return callback(new Error('User name "' + params.name + '" already exist'));
 
-        user_list.add(params, callback);
+        user_list.add(params, function (err, id) {
+          if (err) return callback(err);
+
+          user_list.getById(id, callback);
+        });
       });
     });
 

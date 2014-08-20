@@ -36,9 +36,5 @@ app.start();
 
 
 function test () {
-  app.call('email.notify_user', {
-    user_id: 1,
-    subject: 'hello',
-    template: 'hello'
-  }, console.log);
+  app.call('user.verify.request', {id: 1}, console.log);
 }
