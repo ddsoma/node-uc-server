@@ -20,6 +20,7 @@ module.exports = function (ns, router) {
   checkSourceAppData,
   checkPassportUser,
   function (req, res, next) {
+    res.setLocals('title', 'Sign up');
     res.render('sign/signup');
   });
 
@@ -31,6 +32,7 @@ module.exports = function (ns, router) {
   checkSourceAppData,
   checkPassportUser,
   function (req, res, next) {
+    res.setLocals('title', 'Sign up');
     app.call('user.add', req.body, function (err, id) {
       if (err) {
         res.setLocals('error', err);

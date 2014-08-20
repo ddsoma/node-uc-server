@@ -10,6 +10,7 @@ var app = UCServer.init({
   debug: true,
   port: 3000,
   url: 'http://www.onlyfactory.com',
+  name: 'UC-Server',
   admin: {
     name:     'admin',
     password: UCServer.encryptPassword('123456')
@@ -35,9 +36,5 @@ app.start();
 
 
 function test () {
-  app.call('email.notify_user', {
-    user_id: 2,
-    subject: '测试一下',
-    template: 'hello'
-  }, console.log);
+
 }

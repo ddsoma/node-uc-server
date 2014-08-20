@@ -20,6 +20,7 @@ module.exports = function (ns, router) {
   checkSourceAppData,
   checkPassportUser,
   function (req, res, next) {
+    res.setLocals('title', 'Sign in');
     res.render('sign/signin');
   });
 
@@ -31,6 +32,7 @@ module.exports = function (ns, router) {
   checkSourceAppData,
   checkPassportUser,
   function (req, res, next) {
+    res.setLocals('title', 'Sign in');
     app.call('user.check_password', req.body, function (err, ok) {
       if (err) {
         res.setLocals('error', err);
