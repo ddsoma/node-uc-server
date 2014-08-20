@@ -9,7 +9,7 @@
             <h3 class="panel-title">Sign Up</h3>
           </div>
           <div class="panel-body">
-            {% include "sign/error" %}
+            {% include "front/inc/error" %}
             <form role="form" method="post" enctype="multipart/form-data">
               <input type="hidden" name="_csrf" value="{{_csrf|escape}}">
               <fieldset>
@@ -22,7 +22,9 @@
                 <div class="form-group">
                   <input class="form-control" placeholder="Password" name="password" type="password" value="{{_server.body.password|escape}}">
                 </div>
-                <button type="submit" class="btn btn-success btn-block">Sign up</button>
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary btn-block">Sign up</button>
+                </div>
               </fieldset>
             </form>
             {% include "sign/third_part_signin" %}
