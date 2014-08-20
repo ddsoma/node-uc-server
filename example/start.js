@@ -36,5 +36,9 @@ app.start();
 
 
 function test () {
-
+  app.call('email.notify_user', {
+    user_id: 1,
+    subject: 'hello',
+    template: 'hello'
+  }, console.log);
 }

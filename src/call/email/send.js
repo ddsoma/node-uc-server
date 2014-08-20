@@ -10,6 +10,7 @@ module.exports = function (ns, debug) {
   var nodemailer = require('nodemailer');
   var tinyliquid = require('tinyliquid');
   var async = require('async');
+  var app = ns('app');
 
   var smtpTransport = nodemailer.createTransport('SMTP', ns('config.email'));
   var tplRenders = {};
@@ -45,6 +46,7 @@ module.exports = function (ns, debug) {
       var context = tinyliquid.newContext({
         locals: data
       });
+      context.from(app.context);
       fn(context, function (err) {
         callback(err, context.getBuffer());
       });
