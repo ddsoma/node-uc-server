@@ -20,7 +20,7 @@ module.exports = function (ns, debug) {
         ns('model.user_reset_password_list').getById(id, function (err, verifyInfo) {
           if (err) return callback(err);
 
-          app.call('email.notify_user', {
+          app.call('email.send_to_user', {
             user_id:  userInfo.id,
             subject:  'reset your password',
             template: 'user/reset_password',

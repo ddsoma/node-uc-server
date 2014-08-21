@@ -1,5 +1,5 @@
 /**
- * Call email.notify_user
+ * Call email.send_to_user
  *
  * @author 老雷<leizongmin@gmail.com>
  */

@@ -21,7 +21,7 @@ module.exports = function (ns, debug) {
         ns('model.user_verify_code_list').getById(id, function (err, verifyInfo) {
           if (err) return callback(err);
 
-          app.call('email.notify_user', {
+          app.call('email.send_to_user', {
             user_id:  userInfo.id,
             subject:  'verify your email address',
             template: 'user/verify_email',
