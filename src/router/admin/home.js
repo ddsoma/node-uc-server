@@ -12,7 +12,7 @@ module.exports = function (ns, router) {
   var checkSignIn = ns('middleware.check_admin_signin');
 
   router.get('/admin', checkSignIn, function (req, res, next) {
-    res.render('admin/home');
+    res.redirect('/admin/app/list');
   });
 
 };
