@@ -10,6 +10,10 @@ module.exports = function (ns, debug) {
 
   return function (params, callback) {
 
+    if (!params.password) {
+      return callback(ns('model.user_list').missingRequiredFieldError('password'));
+    }
+
     ns('model.user_reset_password_list').getByCode(params.code, function (err, item) {
       if (err) return callback(err);
       if (!item) return callback(new Error('password reset code not exist: ' + params.code));
@@ -27,9 +31,8 @@ module.exports = function (ns, debug) {
       }
 
       // change password
-      var password = crypto.randomString(20);
       ns('model.user_list').updateById(item.user_id, {
-        password: password
+        password: params.password
       }, function (err) {
         if (err) return callback(err);
 
@@ -39,7 +42,7 @@ module.exports = function (ns, debug) {
         }, function (err) {
           if (err) return callback(err);
 
-          callback(null, {password: password});
+          callback(null, params);
         })
       });
     });
