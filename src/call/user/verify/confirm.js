@@ -36,7 +36,7 @@ module.exports = function (ns, debug) {
         }, function (err) {
           if (err) return callback(err);
 
-          callback(null, params);
+          ns('model.user_verify_code_list').getByCode(params.code, callback);
         })
       });
     });

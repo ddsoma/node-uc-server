@@ -42,7 +42,7 @@ module.exports = function (ns, debug) {
         }, function (err) {
           if (err) return callback(err);
 
-          callback(null, params);
+          ns('model.user_reset_password_list').getByCode(params.code, callback);
         })
       });
     });

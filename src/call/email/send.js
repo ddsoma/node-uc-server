@@ -92,7 +92,7 @@ module.exports = function (ns, debug) {
       var mailOptions = {
         from:    params.from || ns('config.email.from'),
         to:      params.to,
-        subject: params.subject,
+        subject: '[' + ns('config.name') + '] ' + params.subject,
         text:    params.text,
         html:    params.html
       };
