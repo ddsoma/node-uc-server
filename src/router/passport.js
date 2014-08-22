@@ -23,6 +23,8 @@ module.exports = function (ns, router, debug) {
   passport.serializeUser(function(user, done) {
     done(null, user);
   });
+  ns('passport.init', init);
+  ns('passport.module', passport);
 
   router.get('/passport/connect/successed',
   getClientIP,
