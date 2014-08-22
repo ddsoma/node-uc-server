@@ -20,7 +20,7 @@ module.exports = function (ns, router) {
   checkPassportUser,
   function (req, res, next) {
     res.setLocals('title', 'Sign out');
-    app.call('sync.signout', {user: (req.query._data.p || {})}, function (err, list) {
+    app.call('sync.signout', {user: req.session.app_data}, function (err, list) {
       if (err) {
         res.setLocals('error', err);
         res.render('sync/signout');
