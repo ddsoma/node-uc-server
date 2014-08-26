@@ -35,7 +35,7 @@ module.exports = function (ns, router, debug) {
       return next(new Error('cannot get passport session'));
     }
     var connectInfo = req.session.passport.user;
-    connectInfo.id = connectInfo.id || connectInfo.username;
+    connectInfo.id = connectInfo.username || connectInfo.id;
     app.call('passport.get', {
       provider:  connectInfo.provider,
       unique_id: connectInfo.id
