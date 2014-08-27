@@ -40,6 +40,7 @@ module.exports = function (ns, router) {
       } else {
         res.setLocals('user_info', userInfo);
         function signupSuccess () {
+          userInfo.data = req.session.app_data.p;
           app.call('sync.signup', {user: userInfo}, function (err, list) {
             if (err) {
               res.setLocals('error', err);

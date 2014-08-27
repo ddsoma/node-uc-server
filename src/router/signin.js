@@ -47,6 +47,7 @@ module.exports = function (ns, router) {
             res.render('sign/signin');
           } else {
             function signInSuccess () {
+              userInfo.data = req.session.app_data.p;
               app.call('sync.signin', {user: userInfo}, function (err, list) {
                 if (err) {
                   res.setLocals('error', err);
