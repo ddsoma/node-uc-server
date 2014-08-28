@@ -36,7 +36,7 @@ app.start();
 
 
 function test () {
-  app.call('message.get', {
-    id: 4
+  app.call('friend.accept', {
+    id: 3
   }, console.log);
 }

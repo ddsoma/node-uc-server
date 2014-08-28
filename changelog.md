@@ -34,4 +34,23 @@ CREATE TABLE `message_origin_list` (
   KEY `object_id` (`object_id`),
   KEY `created_at` (`created_at`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `friend_list` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) unsigned NOT NULL,
+  `friend_id` int(11) unsigned NOT NULL,
+  `friend_alias` varchar(255) NOT NULL DEFAULT '',
+  `source` varchar(255) NOT NULL DEFAULT '',
+  `greeting` varchar(255) NOT NULL DEFAULT '',
+  `is_accepted` tinyint(11) unsigned NOT NULL,
+  `created_at` int(11) unsigned NOT NULL,
+  `updated_at` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `friend_id` (`friend_id`),
+  KEY `source` (`source`),
+  KEY `is_ accepted` (`is_accepted`),
+  KEY `created_at` (`created_at`),
+  KEY `updated_at` (`updated_at`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 ```

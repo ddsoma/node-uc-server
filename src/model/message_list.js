@@ -37,6 +37,9 @@ module.exports = function (ns, createModel, debug) {
     output: function (data, callback) {
       if (data) {
         data.created_at = new Date(data.created_at * 1000);
+        data.is_removed = !!data.is_removed;
+        data.is_read = !!data.is_read;
+        data.is_inbox = !!data.is_inbox;
       }
       callback(null, data);
     }
