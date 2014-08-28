@@ -5,7 +5,17 @@
     {% if error %}<div class="alert alert-danger">{{error|escape}}</div>{% endif %}
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">User History({{history_count|escape}})</h3>
+        <h3 class="panel-title" style="display:inline-block;">User History({{history_count|escape}})</h3>
+        <div style="width:100px; display:inline-block; margin-bottom:-12px;">
+          <form role="search" method="get">
+            <div class="input-group">
+              <input type="text" class="form-control input-sm" placeholder="User ID" name="user_id" value="{{_server.query.user_id|escape}}">
+              <div class="input-group-btn">
+                <button class="btn btn-default btn-sm" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
       <table class="table table-striped">
         <tr>

@@ -5,10 +5,40 @@
     {% if error %}<div class="alert alert-danger">{{error|escape}}</div>{% endif %}
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">Users({{user_count|escape}})
+        <h3 class="panel-title" style="display:inline-block;">Users({{user_count|escape}})
           <button class="btn btn-xs btn-info view-history">History</button>
           <button class="btn btn-xs btn-primary add-user">Add</button>
         </h3>
+        <div style="width:100px; display:inline-block; margin-bottom:-12px;">
+          <form role="search" method="get">
+            <div class="input-group">
+              <input type="text" class="form-control input-sm" placeholder="User ID" name="id" value="{{_server.query.id|escape}}">
+              <div class="input-group-btn">
+                <button class="btn btn-default btn-sm" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div style="width:120px; display:inline-block; margin-bottom:-12px;">
+          <form role="search" method="get">
+            <div class="input-group">
+              <input type="text" class="form-control input-sm" placeholder="Username" name="name" value="{{_server.query.name|escape}}">
+              <div class="input-group-btn">
+                <button class="btn btn-default btn-sm" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div style="width:160px; display:inline-block; margin-bottom:-12px;">
+          <form role="search" method="get">
+            <div class="input-group">
+              <input type="text" class="form-control input-sm" placeholder="Email" name="email" value="{{_server.query.email|escape}}">
+              <div class="input-group-btn">
+                <button class="btn btn-default btn-sm" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
       <table class="table table-striped">
         <tr>
