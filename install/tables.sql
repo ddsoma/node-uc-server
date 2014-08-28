@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.19)
 # Database: uc_server
-# Generation Time: 2014-08-20 10:11:19 +0000
+# Generation Time: 2014-08-28 10:18:31 +0000
 # ************************************************************
 
 
@@ -23,8 +23,6 @@
 # Dump of table app_call_list
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `app_call_list`;
-
 CREATE TABLE `app_call_list` (
   `app_id` int(11) unsigned NOT NULL,
   `name` varchar(255) NOT NULL DEFAULT '',
@@ -36,8 +34,6 @@ CREATE TABLE `app_call_list` (
 
 # Dump of table app_list
 # ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `app_list`;
 
 CREATE TABLE `app_list` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -58,10 +54,73 @@ CREATE TABLE `app_list` (
 
 
 
-# Dump of table user_connect_list
+# Dump of table friend_list
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `user_connect_list`;
+CREATE TABLE `friend_list` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) unsigned NOT NULL,
+  `friend_id` int(11) unsigned NOT NULL,
+  `friend_alias` varchar(255) NOT NULL DEFAULT '',
+  `source` varchar(255) NOT NULL DEFAULT '',
+  `greeting` varchar(255) NOT NULL DEFAULT '',
+  `is_accepted` tinyint(11) unsigned NOT NULL,
+  `created_at` int(11) unsigned NOT NULL,
+  `updated_at` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `friend_id` (`friend_id`),
+  KEY `source` (`source`),
+  KEY `is_ accepted` (`is_accepted`),
+  KEY `created_at` (`created_at`),
+  KEY `updated_at` (`updated_at`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+# Dump of table message_list
+# ------------------------------------------------------------
+
+CREATE TABLE `message_list` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `message_id` int(11) unsigned NOT NULL,
+  `sender_id` int(11) unsigned NOT NULL,
+  `receiver_id` int(11) unsigned NOT NULL,
+  `is_inbox` tinyint(11) unsigned NOT NULL,
+  `is_removed` tinyint(11) unsigned NOT NULL,
+  `is_read` tinyint(11) unsigned NOT NULL,
+  `created_at` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `message_id` (`message_id`),
+  KEY `sender_id` (`sender_id`),
+  KEY `receiver_id` (`receiver_id`),
+  KEY `is_inbox` (`is_inbox`),
+  KEY `created_at` (`created_at`),
+  KEY `is_removed` (`is_removed`),
+  KEY `is_read` (`is_read`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+# Dump of table message_origin_list
+# ------------------------------------------------------------
+
+CREATE TABLE `message_origin_list` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `object_type` varchar(255) NOT NULL DEFAULT '',
+  `object_id` int(11) unsigned NOT NULL,
+  `content` text NOT NULL,
+  `created_at` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `object_type` (`object_type`),
+  KEY `object_id` (`object_id`),
+  KEY `created_at` (`created_at`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+# Dump of table user_connect_list
+# ------------------------------------------------------------
 
 CREATE TABLE `user_connect_list` (
   `user_id` int(11) NOT NULL,
@@ -76,8 +135,6 @@ CREATE TABLE `user_connect_list` (
 
 # Dump of table user_detail_list
 # ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `user_detail_list`;
 
 CREATE TABLE `user_detail_list` (
   `user_id` int(11) NOT NULL,
@@ -96,8 +153,6 @@ CREATE TABLE `user_detail_list` (
 # Dump of table user_history_list
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `user_history_list`;
-
 CREATE TABLE `user_history_list` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -114,8 +169,6 @@ CREATE TABLE `user_history_list` (
 
 # Dump of table user_list
 # ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `user_list`;
 
 CREATE TABLE `user_list` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -140,8 +193,6 @@ CREATE TABLE `user_list` (
 # Dump of table user_reset_password_list
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `user_reset_password_list`;
-
 CREATE TABLE `user_reset_password_list` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `code` varchar(50) NOT NULL,
@@ -157,8 +208,6 @@ CREATE TABLE `user_reset_password_list` (
 
 # Dump of table user_verify_code_list
 # ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `user_verify_code_list`;
 
 CREATE TABLE `user_verify_code_list` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
