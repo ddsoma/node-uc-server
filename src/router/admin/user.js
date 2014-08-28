@@ -93,4 +93,24 @@ module.exports = function (ns, router) {
     });
   });
 
+  router.get('/admin/user/friends', checkSignIn, function (req, res, next) {
+    if (!(req.query.limit > 0)) req.query.limit = ns('config.model.limit');
+    req.query.order = 'updated_at:desc';
+    app.call('friend.get_list', req.query, function (err, list) {
+      if (err) {
+        res.setLocals('error', err);
+        return res.render('admin/user/friend/list');
+      }
+      app.call('friend.get_count', req.query, function (err, count) {
+        if (err) {
+          res.setLocals('error', err);
+          return res.render('admin/user/friend/list');
+        }
+        res.setLocals('user_list', list);
+        res.setLocals('user_count', count);
+        res.render('admin/user/friend/list');
+      });
+    });
+  });
+
 };

@@ -48,7 +48,7 @@
           <th width="50">Valid</th>
           <th width="155">Created At</th>
           <th width="155">Update At</th>
-          <th width="170">Operations</th>
+          <th width="215">Operations</th>
         </tr>
         {% for item in users %}
           {% assign connect_list = item.id|passport_list_by_user_id %}
@@ -66,6 +66,7 @@
           <td>{{item.updated_at|date:'%Y-%m-%d %H:%M:%S'|escape}}</td>
           <td>
             <a href="/admin/user/history?user_id={{item.id|escape}}" class="btn btn-xs btn-info">History</a>
+            <a href="/admin/user/friends?user_id={{item.id|escape}}" class="btn btn-xs btn-info">Friends</a>
             <button class="btn btn-xs btn-primary edit-user" data-id="{{item.id|escape}}">Edit</button>
             <button class="btn btn-xs btn-danger delete-user" data-id="{{item.id|escape}}" data-name="{{item.name|escape}}">Delete</button>
           </td>

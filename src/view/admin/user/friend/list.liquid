@@ -1,0 +1,84 @@
+{% include "admin/inc/header" %}
+{% include "admin/inc/nav" %}
+
+  <div class="container main">
+    {% if error %}<div class="alert alert-danger">{{error|escape}}</div>{% endif %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title" style="display:inline-block;">{{_server.query.user_id|user_get_name_by_id|escape}}'s friends
+        </h3>
+        <div style="width:100px; display:inline-block; margin-bottom:-12px;">
+          <form role="search" method="get">
+            <div class="input-group">
+              <input type="text" class="form-control input-sm" placeholder="User ID" name="user_id" value="{{_server.query.user_id|escape}}">
+              <div class="input-group-btn">
+                <button class="btn btn-default btn-sm" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div style="width:120px; display:inline-block; margin-bottom:-12px;">
+          <form role="search" method="get">
+            <input type="hidden" name="user_id" value="{{_server.query.user_id|escape}}">
+            <div class="input-group">
+              <input type="text" class="form-control input-sm" placeholder="Source" name="source" value="{{_server.query.source|escape}}">
+              <div class="input-group-btn">
+                <button class="btn btn-default btn-sm" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <table class="table table-striped">
+        <tr>
+          <th width="50">ID</th>
+          <th width="260">Name & Email</th>
+          <th width="100">Alias</th>
+          <th width="100">Source</th>
+          <th width="50">Accepted</th>
+          <th width="155">Update At</th>
+          <th>Greeting</th>
+        </tr>
+        {% for item in user_list %}
+          {% assign user_info = item.friend_id|user_get_by_id %}
+        <tr>
+          <td>#{{item.id|escape}}</td>
+          <td>{{user_info.name|escape}} (<strong>{{user_info.email|escape}}</strong>)</td>
+          <td>{{item.friend_alias|escape}}</td>
+          <td>{{item.source|escape}}</td>
+          <td>{% if item.is_accepted %}Yes{% else %}No{% endif %}</td>
+          <td>{{item.updated_at|date:'%Y-%m-%d %H:%M:%S'|escape}}</td>
+          <td>{{item.greeting|escape|newline_to_br}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      <div class="panel-body">
+        {% include "admin/inc/pagination" count=user_count %}
+      </div>
+    </div>
+  </div>
+
+{% include "admin/inc/footer" %}
+
+<script>
+$('.view-history').click(function () {
+  location = '/admin/user/history';
+});
+$('.add-user').click(function () {
+  location = '/admin/user/add';
+});
+$('.edit-user').click(function () {
+  var id = $(this).data('id');
+  location = '/admin/user/edit?id=' + id;
+});
+$('.delete-user').click(function () {
+  var $me = $(this);
+  var id = $me.data('id');
+  var name = $me.data('name');
+  if (!confirm('Are you sure delete user #1(' + name + ')?')) return;
+  ajaxRequest.delete('/admin/user/list/' + id + '.json', {}, function (err, ret) {
+    if (err) return alert(err);
+    location.reload();
+  });
+});
+</script>

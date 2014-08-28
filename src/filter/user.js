@@ -25,4 +25,13 @@ module.exports = function (ns, registerFilter, debug) {
     }
   });
 
+  function user_get_by_idAsync (id, callback) {
+    if (!(id > 0)) return callback(null, '');
+    app.call('user.get', {id: id}, function (err, userInfo) {
+      callback(null, userInfo || {});
+    });
+  }
+  user_get_by_idAsync.enableCache = true;
+  registerFilter('user_get_by_idAsync', user_get_by_idAsync);
+
 };
