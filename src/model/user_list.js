@@ -7,6 +7,7 @@
 module.exports = function (ns, createModel, debug) {
 
   var crypto = ns('lib.crypto');
+  var validEmail = require('valid-email');
 
   var model = createModel({
     connection: ns('db'),
@@ -15,8 +16,8 @@ module.exports = function (ns, createModel, debug) {
     limit:      ns('config.model.limit'),
     fields: {
       id:           'number',
-      name:         'string',
-      email:        'string',
+      name:         /^[a-z0-9]([a-z0-9]|_|\-){2,49}$/,
+      email:        validEmail,
       password:     'string',
       is_valid:     'number',
       created_at:   'number',
