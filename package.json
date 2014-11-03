@@ -1,6 +1,6 @@
 {
   "name": "uc-server",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "user center server",
   "main": "index.js",
   "scripts": {
