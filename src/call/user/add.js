@@ -11,7 +11,7 @@ module.exports = function (ns, debug) {
     debug('add: [%s] %s', params.email, params.display_name);
     var user_list = ns('model.user_list');
 
-    if (!(params.name && /^[a-z0-9]([a-z0-9]|_){2,49}$/.test(params.name))) {
+    if (!(params.name && /^[a-zA-Z0-9]([a-zA-Z0-9]|_|\-){2,49}$/.test(params.name))) {
       return callback(new Error('Username may only contain alphanumeric characters or dashes and cannot begin with a dash'));
     }
     if (!(params.email && validEmail(params.email))) {

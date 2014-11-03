@@ -27,6 +27,9 @@ module.exports = function (ns, createModel, debug) {
     queryFields: ['name', 'email'],
     requiredFields: ['name', 'email', 'password'],
     input: function (data, callback, type) {
+      if ('name' in data) {
+        data.name = data.name.toLowerCase();
+      }
       if (type === 'add') {
         data.is_verified_email = 0;
         data.created_at = model.timestamp();
